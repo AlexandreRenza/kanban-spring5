@@ -1,6 +1,6 @@
-package service;
+package renza.springframework.kanbanrestspring5.services;
 
-import api.v1.model.ProjectDTO;
+import renza.springframework.kanbanrestspring5.api.v1.model.ProjectDTO;
 
 import java.util.List;
 
@@ -15,6 +15,5 @@ public interface ProjectService {
     ProjectDTO saveProjectByDTO(Long id, ProjectDTO projectDTO);
 
     void deleteProjectById(Long id);
-
 
 }

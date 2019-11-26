@@ -1,14 +1,16 @@
-package service;
+package renza.springframework.kanbanrestspring5.services;
 
-import api.v1.mapper.ProjectMapper;
-import api.v1.model.ProjectDTO;
-import domain.Project;
-import repositoty.ProjectRepository;
+import org.springframework.stereotype.Service;
+import renza.springframework.kanbanrestspring5.api.v1.mapper.ProjectMapper;
+import renza.springframework.kanbanrestspring5.api.v1.model.ProjectDTO;
+import renza.springframework.kanbanrestspring5.domain.Project;
+import renza.springframework.kanbanrestspring5.repositories.ProjectRepository;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class ProjectServiceImpl implements ProjectService {
-
     private final ProjectMapper projectMapper;
     private final ProjectRepository projectRepository;
 

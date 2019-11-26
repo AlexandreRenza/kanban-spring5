@@ -1,4 +1,4 @@
-package api.v1.model;
+package renza.springframework.kanbanrestspring5.api.v1.model;
 
 import lombok.Data;
 
@@ -7,4 +7,6 @@ public class ProjectDTO {
 
     private Long id;
     private String name;
+    private String status;
+
 }

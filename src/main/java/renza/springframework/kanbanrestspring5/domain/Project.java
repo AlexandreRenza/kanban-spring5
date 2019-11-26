@@ -1,4 +1,4 @@
-package domain;
+package renza.springframework.kanbanrestspring5.domain;
 
 import lombok.Data;
 
@@ -15,5 +15,6 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String name;
+    private String status;
 
 }
