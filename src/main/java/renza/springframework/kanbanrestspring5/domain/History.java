@@ -3,20 +3,21 @@ package renza.springframework.kanbanrestspring5.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @Entity
-public class Project {
+public class History {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String name;
     private String status;
+    private String description;
+    private String criteria;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "history")
-    private Set<History> histories;
+    @ManyToOne
+    private Project project;
 
 
 }
