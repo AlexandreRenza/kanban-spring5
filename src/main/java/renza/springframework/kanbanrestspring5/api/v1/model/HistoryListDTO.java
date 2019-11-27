@@ -8,6 +8,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class HistoryListDTO {
-    List<HistoryDTO> historyDTOS;
+    List<HistoryDTO> histories;
 
 }
