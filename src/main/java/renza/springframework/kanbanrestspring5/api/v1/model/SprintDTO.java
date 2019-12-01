@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import renza.springframework.kanbanrestspring5.domain.History;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -16,8 +17,8 @@ public class SprintDTO {
     private Long project_id;
     private String name;
     private String goal;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     @JsonIgnoreProperties("sprint")
     private Set<History> histories;
 
