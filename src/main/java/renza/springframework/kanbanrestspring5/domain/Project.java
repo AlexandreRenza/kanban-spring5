@@ -20,9 +20,19 @@ public class Project {
     private Set<History> histories  = new HashSet<>();
 
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project", fetch = FetchType.LAZY)
+    private Set<Sprint> sprints  = new HashSet<>();
+
+
     public Project addHistory(History history){
         history.setProject(this);
         this.histories.add(history);
+        return this;
+    }
+
+    public Project addSprint(Sprint sprint){
+        sprint.setProject(this);
+        this.sprints.add(sprint);
         return this;
     }
 
