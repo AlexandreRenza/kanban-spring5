@@ -29,7 +29,15 @@ public class Sprint {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sprint", fetch = FetchType.LAZY)
     private Set<History> histories  = new HashSet<>();
+
+
+    public Sprint addHistory(History history){
+        history.setSprint(this);
+        this.histories.add(history);
+        return this;
+    }
+
 
 }

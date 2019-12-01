@@ -7,6 +7,7 @@ public class HistoryDTO {
 
     private Long Id;
     private Long project_id;
+    private Long sprint_id;
     private String name;
     private String status;
     private String description;

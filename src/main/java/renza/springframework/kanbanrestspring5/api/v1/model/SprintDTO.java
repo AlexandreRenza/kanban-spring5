@@ -4,21 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import renza.springframework.kanbanrestspring5.domain.History;
-import renza.springframework.kanbanrestspring5.domain.Sprint;
 
+import java.util.Date;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
-public class ProjectDTO {
+public class SprintDTO {
 
-    private Long id;
+    private Long Id;
+    private Long project_id;
     private String name;
-    private String status;
-    @JsonIgnoreProperties("project")
+    private String goal;
+    private Date startDate;
+    private Date endDate;
+    @JsonIgnoreProperties("sprint")
     private Set<History> histories;
-    @JsonIgnoreProperties("project")
-    private Set<Sprint> sprints;
 
 
 }
