@@ -1,11 +1,15 @@
 package renza.springframework.kanbanrestspring5.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@EqualsAndHashCode(exclude = {"project"})
+@ToString(exclude = { "project"})
 public class History {
 
     @Id
@@ -16,7 +20,8 @@ public class History {
     private String description;
     private String criteria;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
     private Project project;
 
 

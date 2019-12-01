@@ -1,8 +1,9 @@
 package renza.springframework.kanbanrestspring5.domain;
 
-import lombok.Data;
 
+import lombok.Data;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -15,8 +16,14 @@ public class Project {
     private String name;
     private String status;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "history")
-    private Set<History> histories;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "project", fetch = FetchType.LAZY)
+    private Set<History> histories  = new HashSet<>();
 
+
+    public Project addHistory(History history){
+        history.setProject(this);
+        this.histories.add(history);
+        return this;
+    }
 
 }

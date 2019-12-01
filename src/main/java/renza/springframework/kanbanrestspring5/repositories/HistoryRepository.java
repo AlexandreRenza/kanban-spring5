@@ -5,6 +5,6 @@ import renza.springframework.kanbanrestspring5.domain.History;
 
 public interface HistoryRepository extends JpaRepository<History, Long> {
 
-    History finfByName(String Name);
+    History findByName(String name);
 
 }

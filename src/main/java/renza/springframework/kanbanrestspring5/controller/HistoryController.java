@@ -7,14 +7,13 @@ import renza.springframework.kanbanrestspring5.api.v1.model.HistoryListDTO;
 import renza.springframework.kanbanrestspring5.services.HistoryService;
 
 @RestController
-@RequestMapping(ProjectController.BASE_URL)
+@RequestMapping(HistoryController.BASE_URL)
 @CrossOrigin(origins = "${originUrl}", methods = {RequestMethod.DELETE, RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class HistoryController {
 
-    public static final String BASE_URL = "api/v1/projects";
+    public static final String BASE_URL = "api/v1/histories";
 
     private final HistoryService historyService;
-
 
     public HistoryController(HistoryService historyService) {
         this.historyService = historyService;
