@@ -1,5 +1,6 @@
 package renza.springframework.kanbanrestspring5.services;
 
+import org.springframework.stereotype.Service;
 import renza.springframework.kanbanrestspring5.api.v1.mapper.SprintMapper;
 import renza.springframework.kanbanrestspring5.api.v1.model.SprintDTO;
 import renza.springframework.kanbanrestspring5.domain.Project;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class SprintServiceImpl implements SprintService {
 
     private final SprintMapper sprintMapper;
