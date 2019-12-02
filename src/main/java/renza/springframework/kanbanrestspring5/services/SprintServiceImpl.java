@@ -61,6 +61,7 @@ public class SprintServiceImpl implements SprintService {
 
         if(sprint.getId()==null){
             project.addSprint(sprint);
+            idIsNull = true;
         }else {
             Optional<Sprint> updateSprint = project.getSprints().stream()
                     .filter(projectSprints -> projectSprints.getId().equals(sprint.getId()))
@@ -75,8 +76,8 @@ public class SprintServiceImpl implements SprintService {
         Project savedProject = projectRepository.save(project);
 
         Optional<Sprint> savedSprint = savedProject.getSprints().stream()
-                .filter(idIsNull ? projectSprints -> (projectSprints.getProject().getId().equals(sprint.getId())
-                                                      && projectSprints.getProject().getName().equals(sprint.getName()))
+                .filter(idIsNull ? projectSprints -> (projectSprints.getProject().getId().equals(sprint.getProject().getId())
+                                                      && projectSprints.getName().equals(sprint.getName()))
                                  : projectSprints -> projectSprints.getId().equals(sprint.getId()))
                 .findFirst();
 
