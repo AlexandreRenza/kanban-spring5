@@ -15,9 +15,9 @@ public class ProjectDTO {
     private Long id;
     private String name;
     private String status;
-    @JsonIgnoreProperties("project")
+    @JsonIgnoreProperties({"project","sprint"})
     private Set<History> histories;
-    @JsonIgnoreProperties("project")
+    @JsonIgnoreProperties({"project","histories"})
     private Set<Sprint> sprints;
 
 

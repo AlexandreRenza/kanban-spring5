@@ -1,6 +1,5 @@
 package renza.springframework.kanbanrestspring5.domain;
 
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -13,7 +12,7 @@ import java.util.Set;
 @Data
 @Entity
 @EqualsAndHashCode(exclude = {"project"})
-@ToString(exclude = {"project"})
+@ToString(exclude = { "project", "histories"})
 public class Sprint {
 
 
@@ -32,12 +31,16 @@ public class Sprint {
     @OneToMany(mappedBy = "sprint", fetch = FetchType.LAZY)
     private Set<History> histories  = new HashSet<>();
 
-
     public Sprint addHistory(History history){
         history.setSprint(this);
         this.histories.add(history);
         return this;
     }
 
+    public Sprint remHistory(History history){
+        history.getSprint();
+        this.histories.remove(history);
+        return this;
+    }
 
 }

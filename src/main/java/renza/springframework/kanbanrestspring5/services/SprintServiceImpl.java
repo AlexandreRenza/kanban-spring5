@@ -1,15 +1,22 @@
 package renza.springframework.kanbanrestspring5.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import renza.springframework.kanbanrestspring5.api.v1.mapper.SprintMapper;
+import renza.springframework.kanbanrestspring5.api.v1.model.HistoryDTO;
 import renza.springframework.kanbanrestspring5.api.v1.model.SprintDTO;
+import renza.springframework.kanbanrestspring5.domain.History;
 import renza.springframework.kanbanrestspring5.domain.Project;
 import renza.springframework.kanbanrestspring5.domain.Sprint;
+import renza.springframework.kanbanrestspring5.repositories.HistoryRepository;
 import renza.springframework.kanbanrestspring5.repositories.ProjectRepository;
 import renza.springframework.kanbanrestspring5.repositories.SprintRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,11 +25,13 @@ public class SprintServiceImpl implements SprintService {
     private final SprintMapper sprintMapper;
     private final SprintRepository sprintRepository;
     private final ProjectRepository projectRepository;
+    private final HistoryRepository historyRepository;
 
-    public SprintServiceImpl(SprintMapper sprintMapper, SprintRepository sprintRepository, ProjectRepository projectRepository) {
+    public SprintServiceImpl(SprintMapper sprintMapper, SprintRepository sprintRepository, ProjectRepository projectRepository, HistoryRepository historyRepository) {
         this.sprintMapper = sprintMapper;
         this.sprintRepository = sprintRepository;
         this.projectRepository = projectRepository;
+        this.historyRepository = historyRepository;
     }
 
 
@@ -50,6 +59,7 @@ public class SprintServiceImpl implements SprintService {
         return saveAndReturnDTO(sprintMapper.sprintDTOToSprint(sprintDTO),sprintDTO.getProject_id()) ;
     }
 
+
     private SprintDTO saveAndReturnDTO(Sprint sprint, Long project_id){
 
         SprintDTO returnDTO;
@@ -62,6 +72,7 @@ public class SprintServiceImpl implements SprintService {
         if(sprint.getId()==null){
             project.addSprint(sprint);
             idIsNull = true;
+
         }else {
             Optional<Sprint> updateSprint = project.getSprints().stream()
                     .filter(projectSprints -> projectSprints.getId().equals(sprint.getId()))
@@ -73,7 +84,8 @@ public class SprintServiceImpl implements SprintService {
             sprintFound.setEndDate(sprint.getEndDate());
         }
 
-        Project savedProject = projectRepository.save(project);
+
+        Project savedProject = projectRepository.saveAndFlush(project);
 
         Optional<Sprint> savedSprint = savedProject.getSprints().stream()
                 .filter(idIsNull ? projectSprints -> (projectSprints.getProject().getId().equals(sprint.getProject().getId())
@@ -81,7 +93,32 @@ public class SprintServiceImpl implements SprintService {
                                  : projectSprints -> projectSprints.getId().equals(sprint.getId()))
                 .findFirst();
 
-        returnDTO = sprintMapper.sprintToSprintDTO(savedSprint.get());
+
+        Sprint sprintsaved = savedSprint.get();
+
+        if(sprint.getHistories() != null){
+
+            for( History valor : sprint.getHistories()){
+
+                Optional<History> updateHistory = project.getHistories().stream()
+                        .filter(history -> history.getId().equals(valor.getId()))
+                        .findFirst();
+                History historyFound = updateHistory.get();
+
+                String option = "i";
+
+                if( (valor.getOp()).equals(option)){
+                    sprintsaved.addHistory(historyFound);
+                }else{
+                    historyFound.setSprint(null);
+                    sprintsaved.remHistory(historyFound);
+                }
+            }
+        }
+
+        Sprint reloadSprint = sprintRepository.save(sprintsaved);
+
+        returnDTO = sprintMapper.sprintToSprintDTO(reloadSprint);
 
         return returnDTO;
     }
@@ -95,7 +132,6 @@ public class SprintServiceImpl implements SprintService {
         SprintDTO savedSprintDTO = saveAndReturnDTO(sprint, sprintDTO.getProject_id());
 
         return savedSprintDTO;
-
     }
 
     @Override

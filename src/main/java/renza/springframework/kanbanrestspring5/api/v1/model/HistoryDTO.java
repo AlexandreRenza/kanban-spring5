@@ -12,5 +12,6 @@ public class HistoryDTO {
     private String status;
     private String description;
     private String criteria;
+    private String op;
 
 }

@@ -20,6 +20,9 @@ public class History {
     private String description;
     private String criteria;
 
+    @Transient
+    private String op;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
