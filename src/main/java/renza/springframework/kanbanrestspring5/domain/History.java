@@ -31,5 +31,4 @@ public class History {
     @JoinColumn(name = "sprint_id")
     private Sprint sprint;
 
-
 }

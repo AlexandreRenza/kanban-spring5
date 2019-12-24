@@ -60,8 +60,6 @@ public class Bootstrap implements CommandLineRunner {
         sprintRepository.save(sprint2);
 
 
-
-
         History history1 = new History();
         history1.setName("Historia 1");
         history1.setDescription("Tudo que temos que fazer na história 1");
