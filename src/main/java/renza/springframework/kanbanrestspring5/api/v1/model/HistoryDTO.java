@@ -10,6 +10,7 @@ public class HistoryDTO {
     private Long sprint_id;
     private String name;
     private String status;
+    private String implStatus;
     private String description;
     private String criteria;
     private String op;

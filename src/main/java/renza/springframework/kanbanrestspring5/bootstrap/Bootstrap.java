@@ -65,6 +65,7 @@ public class Bootstrap implements CommandLineRunner {
         history1.setDescription("Tudo que temos que fazer na história 1");
         history1.setCriteria("criterios de aceitação história 1");
         history1.setStatus("Acepted");
+        history1.setImplStatus("To Do");
         history1.setProject(project1);
         history1.setSprint(sprint1);
         historyRepository.save(history1);
@@ -74,6 +75,7 @@ public class Bootstrap implements CommandLineRunner {
         history2.setDescription("Tudo que temos que fazer na história 2");
         history2.setCriteria("criterios de aceitação história 2");
         history2.setStatus("Acepted");
+        history2.setImplStatus("To Do");
         history2.setProject(project1);
         history2.setSprint(sprint1);
         historyRepository.save(history2);
@@ -83,6 +85,7 @@ public class Bootstrap implements CommandLineRunner {
         history3.setDescription("Tudo que temos que fazer na história 3");
         history3.setCriteria("criterios de aceitação história 3");
         history3.setStatus("Acepted");
+        history3.setImplStatus("To Do");
         history3.setProject(project1);
         historyRepository.save(history3);
 
@@ -91,6 +94,7 @@ public class Bootstrap implements CommandLineRunner {
         history4.setDescription("Tudo que temos que fazer na história 4");
         history4.setCriteria("criterios de aceitação história 4");
         history4.setStatus("Acepted");
+        history4.setImplStatus("To Do");
         history4.setProject(project1);
         historyRepository.save(history4);
 

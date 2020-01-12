@@ -17,6 +17,7 @@ public class History {
     private Long Id;
     private String name;
     private String status;
+    private String implStatus;
     private String description;
     private String criteria;
 

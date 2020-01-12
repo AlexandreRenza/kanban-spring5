@@ -1,15 +1,20 @@
 package renza.springframework.kanbanrestspring5.services;
 
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 import renza.springframework.kanbanrestspring5.api.v1.mapper.HistoryMapper;
 import renza.springframework.kanbanrestspring5.api.v1.mapper.ProjectMapper;
 import renza.springframework.kanbanrestspring5.api.v1.model.HistoryDTO;
+import renza.springframework.kanbanrestspring5.api.v1.model.HistoryListDTO;
 import renza.springframework.kanbanrestspring5.domain.History;
 import renza.springframework.kanbanrestspring5.domain.Project;
 import renza.springframework.kanbanrestspring5.repositories.HistoryRepository;
 import renza.springframework.kanbanrestspring5.repositories.ProjectRepository;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,6 +37,28 @@ public class HistoryServiceImpl implements HistoryService {
     public List<HistoryDTO> getAllHistories() {
         return historyRepository
                 .findAll()
+                .stream()
+                .map(history -> {
+                    HistoryDTO historyDTO = historyMapper.historyToHistoryDTO(history);
+                    return historyDTO;})
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<HistoryDTO> getAllHistoriesToSelect(Long SprintId) {
+        return historyRepository
+                .findHistoriesToSelect(SprintId)
+                .stream()
+                .map(history -> {
+                    HistoryDTO historyDTO = historyMapper.historyToHistoryDTO(history);
+                    return historyDTO;})
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<HistoryDTO> getAllHistoriesOnBoard(Long SprintId) {
+        return historyRepository
+                .findHistoriesOnBoard(SprintId)
                 .stream()
                 .map(history -> {
                     HistoryDTO historyDTO = historyMapper.historyToHistoryDTO(history);
@@ -76,6 +103,7 @@ public class HistoryServiceImpl implements HistoryService {
             History historyFound = updateHistory.get();
             historyFound.setName(history.getName());
             historyFound.setStatus(history.getStatus());
+            historyFound.setImplStatus(history.getImplStatus());
             historyFound.setCriteria(history.getCriteria());
             historyFound.setDescription(history.getDescription());
         }
@@ -103,6 +131,22 @@ public class HistoryServiceImpl implements HistoryService {
         HistoryDTO savedHistoryDTO = saveAndReturnDTO(history, historyDTO.getProject_id());
 
         return savedHistoryDTO;
+    }
+
+    @Override
+    public void updateSprintOfHistory(Long sprint_id, List<HistoryDTO> histories )  {
+
+        historyRepository.setNullSprintToHistories(sprint_id);
+        for (HistoryDTO history : histories) {
+            historyRepository.setSprintOfHistories(sprint_id, history.getId());
+        }
+    }
+
+    @Override
+    public void updateSprintOfHistory(String implStatus, Long Id) {
+
+        historyRepository.setImplStatusHistory(implStatus, Id);
+
     }
 
     @Override

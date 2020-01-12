@@ -1,9 +1,7 @@
 package renza.springframework.kanbanrestspring5.services;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import renza.springframework.kanbanrestspring5.api.v1.mapper.SprintMapper;
-import renza.springframework.kanbanrestspring5.api.v1.model.HistoryDTO;
 import renza.springframework.kanbanrestspring5.api.v1.model.SprintDTO;
 import renza.springframework.kanbanrestspring5.domain.History;
 import renza.springframework.kanbanrestspring5.domain.Project;
@@ -11,12 +9,8 @@ import renza.springframework.kanbanrestspring5.domain.Sprint;
 import renza.springframework.kanbanrestspring5.repositories.HistoryRepository;
 import renza.springframework.kanbanrestspring5.repositories.ProjectRepository;
 import renza.springframework.kanbanrestspring5.repositories.SprintRepository;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
